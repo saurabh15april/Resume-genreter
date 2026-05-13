@@ -6,21 +6,20 @@ import Navbar from "../components/navbar"
 import DashboardCards from "../components/dashboard"
 import ProductionPlan from "../components/productionplan"
 function App() {
-  return (<>  HOPE
-  </>
-    // <div className="app-layout">
+  return (
 
-    //   <Sidebar />
+    <div className="app-layout">
 
-    //   <div className="main-section">
+      <Sidebar />
 
-    //     <Navbar />
-    //     <DashboardCards/>
+      <div className="main-section">
+        <Navbar />
+        <DashboardCards/>
         
 
-    //   </div>
+      </div>
 
-    // </div>
+    </div>
   )
 }
 
