@@ -10,23 +10,89 @@ import Navbar from "../components/navbar"
 import DashboardCards from "../components/dashboard"
 import ProductionPlan from "../components/productionplan"
 
-import addNewMasterData from "../components/addNewMasterData"
-import addNewPPData from "../components/addNewPPData"
-import deletePP from "../components/deletePP.jsx"
-import machineWiseLoading from "../components/machineWiseLoading"
-import masterData from "../components/masterData"
-import resultant from "../components/resultant"
+import AddNewMasterData from "../components/addNewMasterData"
+import AddNewPPData from "../components/addNewPPData"
+import DeletePP from "../components/deletePP.jsx"
+import MachineWiseLoading from "../components/machineWiseLoading"
+import MasterData from "../components/masterData"
+import Resultant from "../components/resultant"
+
+
+const appRoutes = [
+
+  {
+    path: "/",
+    element: <DashboardCards/>
+  },
+
+  {
+    path: "/Production-Plan",
+    element: <ProductionPlan/>
+  },
+
+  {
+    path: "/Add-Routing",
+    element: <AddNewMasterData/>
+  },
+
+  {
+    path: "/Add-Production-Plan",
+    element: <AddNewPPData />
+  },
+
+  {
+    path: "/machine/:id",
+    element: <MachineWiseLoading/>
+  },
+
+  {
+    path: "/All-routing",
+    element: <MasterData />
+  },
+
+  {
+    path: "/Resultant",
+    element: <Resultant />
+  },
+
+  {
+    path: "/Delete",
+    element: <DeletePP/>
+  }
+
+
+]
+
+
+
+
+
+
 function App() {
   return (
 
     <div className="app-layout">
 
-      <Sidebar />
+      <Sidebar routes={appRoutes} />
 
       <div className="main-section">
         <Navbar />
-        <DashboardCards/>
-        <ProductionPlan/>
+
+        <Routes>
+
+          {
+            appRoutes.map((route, index) => (
+
+              <Route
+                key={index}
+                path={route.path}
+                element={route.element}
+              />
+
+            ))
+          }
+
+        </Routes>
 
       </div>
 

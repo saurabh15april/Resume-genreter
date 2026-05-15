@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function machineWiseLoading() {
+export default function MachineWiseLoading() {
   return (
     <div>machineWiseLoading</div>
   )

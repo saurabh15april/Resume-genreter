@@ -1,5 +1,5 @@
 // components/Sidebar.jsx
-
+import { Link } from "react-router-dom"
 import {
   LayoutDashboard,
   Factory,
@@ -8,13 +8,13 @@ import {
   Bell,
   BarChart3,
   ClipboardList,
-  Users,
-  Wrench,
+  Projector,
   Moon,
   Sun,
   ChevronLeft,
   ChevronRight,
-  LogOut
+  LogOut,
+  Trash
 } from "lucide-react"
 
 import { useState } from "react"
@@ -22,7 +22,7 @@ import { useState } from "react"
 function Sidebar() {
 
   const [collapsed, setCollapsed] = useState(false)
-  const [darkMode, setDarkMode] = useState(true)
+  
 
   return (
     <div className={collapsed ? "sidebar collapsed" : "sidebar"}>
@@ -34,7 +34,7 @@ function Sidebar() {
         <div className="top-bar">
 
           {!collapsed && (
-            <h2 className="logo">Shop Floor Planning</h2>
+            <h2 className="logo">Shop Floor</h2>
           )}
 
           <button
@@ -50,14 +50,16 @@ function Sidebar() {
 
         <div className="profile-card">
 
+         
+
+          {!collapsed && (
+            
+            <div>
           <img
             src="https://i.pravatar.cc/100"
             alt="profile"
           />
-
-          {!collapsed && (
-            <div>
-              <h4>Saurabh</h4>
+              <h4>Saurabh Dubey</h4>
               <p>Assistant Manager</p>
             </div>
           )}
@@ -68,49 +70,76 @@ function Sidebar() {
 
         <ul className="menu">
 
-          <li className="active">
+          <li >
             <LayoutDashboard size={20} />
-            {!collapsed && <span>Dashboard</span>}
+            {!collapsed && <Link to="/"  className="menu-btn">
+            <span>Dashboard</span>
+       
+      </Link>}
           </li>
 
           <li>
             <Factory size={20} />
-            {!collapsed && <span>Production Plan</span>}
+            {!collapsed && <Link to="/Production-Plan"  className="menu-btn">
+            <span>Production Plan</span>
+       
+      </Link>}
           </li>
 
           <li>
             <ShieldCheck size={20} />
-            {!collapsed && <span>Master Data</span>}
+             {!collapsed && <Link to="/All-routing"  className="menu-btn">
+            <span>Master Data</span>
+       
+      </Link>}
           </li>
 
           <li>
             <BarChart3 size={20} />
-            {!collapsed && <span>Resultant</span>}
+             {!collapsed && <Link to="/Resultant"  className="menu-btn">
+            <span>Resultant</span>
+       
+      </Link>}
           </li>
 
           <li>
             <ClipboardList size={20} />
-            {!collapsed && <span>Add Master data</span>}
+             {!collapsed && <Link to="/Add-Routing"  className="menu-btn">
+            <span>Add Master data</span>
+       
+      </Link>}
           </li>
 
           <li>
             <Bell size={20} />
-            {!collapsed && <span>Add Production Plans</span>}
+             {!collapsed && <Link to="/Add-Production-Plan"  className="menu-btn">
+            <span>Add Production Plans</span>
+       
+      </Link>}
           </li>
 
           <li>
-            <Users size={20} />
-            {!collapsed && <span>Delete Data</span>}
+            <Trash size={20} />
+             {!collapsed && <Link to="/Delete"  className="menu-btn">
+            <span>Delete Data</span>
+       
+      </Link>}
           </li>
 
           <li>
-            <Wrench size={20} />
-            {!collapsed && <span>Maintenance</span>}
+            <Projector size={20} />
+             {!collapsed && <Link to="/machine/:id"  className="menu-btn">
+            <span>Machine Wise Loading</span>
+       
+      </Link>}
           </li>
 
           <li>
             <Settings size={20} />
-            {!collapsed && <span>Settings</span>}
+             {!collapsed && <Link to="/"  className="menu-btn">
+            <span>Settings</span>
+       
+      </Link>}
           </li>
 
         </ul>
@@ -123,7 +152,7 @@ function Sidebar() {
 
         {/* DARK MODE */}
 
-        <button
+        {/* <button
           className="dark-btn"
           onClick={() => setDarkMode(!darkMode)}
         >
@@ -134,7 +163,7 @@ function Sidebar() {
               {darkMode ? "Light Mode" : "Dark Mode"}
             </span>
           )}
-        </button>
+        </button> */}
 
         {/* LOGOUT */}
 

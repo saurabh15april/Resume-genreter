@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function deletePP() {
+export default function DeletePP() {
   return (
     <div>deletePP</div>
   )

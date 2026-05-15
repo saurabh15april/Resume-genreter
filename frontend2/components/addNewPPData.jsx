@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function addNewPPData() {
+export default function AddNewPPData() {
   return (
-    <div>addNewPPData</div>
+    <div>addNewPPDatA</div>
   )
 }

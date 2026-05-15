@@ -1,5 +1,4 @@
 // components/Navbar.jsx
-
 import {
   Bell,
   Search,
@@ -7,6 +6,7 @@ import {
   Moon,
   
 } from "lucide-react"
+import DashboardCards from "./dashboard"
 
 function Navbar() {
   return (
@@ -17,7 +17,7 @@ function Navbar() {
       <div className="nav-left">
 
         <div>
-          <h2>Production Dashboard</h2>
+          <h2>Dashboard Production</h2>
           <p>Welcome back, Saurabh 👋</p>
         </div>
 
