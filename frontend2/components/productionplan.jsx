@@ -1,199 +1,287 @@
-// components/MachineTable.jsx
+// PRODUCTION PLAN
 
-import {
-  Cpu,
-  Clock3,
-  Users,
-  Activity,
-  CircleAlert
-} from "lucide-react"
+import { useState } from "react";
 
-const ProductionPan = [
-  {
-    machine: "GR-820",
-    component: "Godet Shaft",
-    status: "Running",
-    shift: "A",
-    manpower: 6,
-    totalTime: "124h",
-    efficiency: "92%"
-  },
 
-  {
-    machine: "VMC-204",
-    component: "Center Plug",
-    status: "Maintenance",
-    shift: "B",
-    manpower: 4,
-    totalTime: "88h",
-    efficiency: "76%"
-  },
+function ProductionPlan() {
 
-  {
-    machine: "HMC-500",
-    component: "Gear Housing",
-    status: "Idle",
-    shift: "C",
-    manpower: 2,
-    totalTime: "64h",
-    efficiency: "58%"
-  },
+  const [showPopup, setShowPopup] = useState(false);
 
-  {
-    machine: "CNC-110",
-    component: "Rotor Sleeve",
-    status: "Running",
-    shift: "A",
-    manpower: 5,
-    totalTime: "140h",
-    efficiency: "95%"
+  const [completedQty, setCompletedQty] =
+    useState("");
+
+  const [componentData, setComponentData] =
+  useState({
+    clientName: "Reliance Industries",
+
+    componentName: "Gear Housing",
+
+    componentNumber: "GH-2026-001",
+
+    cycleTime: "20 min",
+
+    qty: 250,
+
+    machines: [
+      {
+        operation: "OP10",
+        machine: "VMC-01",
+        status: "completed",
+      },
+
+      {
+        operation: "OP20",
+        machine: "HMC-02",
+        status: "completed",
+      },
+
+      {
+        operation: "OP30",
+        machine: "CNC-05",
+        status: "running",
+      },
+
+      {
+        operation: "OP40",
+        machine: "VTL-01",
+        status: "pending",
+      },
+
+      {
+        operation: "OP50",
+        machine: "Grinding",
+        status: "pending",
+      },
+    ],
+  });
+
+  // Complete Button
+// HandlComplete
+  const handleComplete = () => {
+
+  const qty = Number(completedQty);
+
+  // Validation
+
+  if (!qty || qty <= 0) {
+    alert("Enter valid qty");
+    return;
   }
-]
 
-function MachineTable() {
+  if (qty > componentData.qty) {
+    alert("Qty exceeds available quantity");
+    return;
+  }
+
+  // Minus Qty
+
+  setComponentData((prev) => ({
+    ...prev,
+    qty: prev.qty - qty,
+  }));
+
+  console.log("Completed Qty :", qty);
+
+  console.log(
+    "Remaining Qty :",
+    componentData.qty - qty
+  );
+
+  // Close Popup
+
+  setShowPopup(false);
+
+  setCompletedQty("");
+};
   return (
-    <div className="table-wrapper">
+    <div className="app">
 
-      {/* TOP */}
+      {/* Main Card */}
 
-      <div className="table-header">
+      <div className="production-card">
 
-        <div>
-          <h2>Machine Live Status</h2>
-          <p>Real-time CNC production monitoring</p>
+        {/* Header */}
+
+        <div className="card-header">
+
+          <div>
+            <h2>
+              {
+                componentData.componentName
+              }
+            </h2>
+
+            <p>
+              Client :
+              <span>
+                {
+                  componentData.clientName
+                }
+              </span>
+            </p>
+          </div>
+           <div className="info-card">
+              <h4>
+                Component Number
+              </h4>
+
+              <p>
+                {
+                  componentData.componentNumber
+                }
+              </p>
+            </div>
+
+            <div className="info-card">
+              <h4>Cycle Time</h4>
+
+              <p>
+                {
+                  componentData.cycleTime
+                }
+              </p>
+            </div>
+
+          <div className="qty-box">
+            Qty :
+            <span>
+              {componentData.qty}
+            </span>
+          </div>
+
         </div>
 
-        <button className="live-btn">
-          ● Live Monitoring
-        </button>
+        {/* Body */}
 
+        <div className="card-body">
+
+
+          {/* MACHINE FLOW */}
+
+<div className="machine-flow">
+
+  {componentData.machines.map(
+    (item, index) => (
+      <div
+        className="flow-step"
+        key={index}
+      >
+
+        {/* Machine Circle */}
+
+        <div
+          className={`machine-node ${item.status}`}
+        >
+          <h4>{item.machine}</h4>
+
+          <span>{item.operation}</span>
+        </div>
+
+        {/* Line */}
+
+        {index !==
+          componentData.machines.length -
+            1 && (
+          <div
+            className={`flow-line ${
+              item.status ===
+              "completed"
+                ? "active"
+                : ""
+            }`}
+          ></div>
+        )}
+      </div>
+    )
+  )}
+
+</div>
+
+          {/* Buttons */}
+
+          <div className="button-group">
+
+            <button className="btn drawing">
+              Show Drawing
+            </button>
+
+            <button
+              className="btn complete"
+              onClick={() =>
+                setShowPopup(true)
+              }
+            >
+              Complete
+            </button>
+
+            <button className="btn accept">
+              Accept
+            </button>
+
+            <button className="btn running">
+              Running
+            </button>
+
+            <button className="btn stop">
+              Stop
+            </button>
+
+            <button className="btn rm">
+              RM Not Avl
+            </button>
+
+          </div>
+
+        </div>
       </div>
 
-      {/* TABLE */}
+      {/* Popup */}
 
-      <div className="table-container">
+      {showPopup && (
+        <div className="popup-overlay">
 
-        <table>
+          <div className="popup">
 
-          <thead>
+            <h2>
+              Enter Completed Qty
+            </h2>
 
-            <tr>
-              <th>Machine</th>
-              <th>Component</th>
-              <th>Status</th>
-              <th>Shift</th>
-              <th>Manpower</th>
-              <th>Total Time</th>
-              <th>Efficiency</th>
-            </tr>
+            <input
+              type="number"
+              placeholder="Enter Qty"
+              value={completedQty}
+              onChange={(e) =>
+                setCompletedQty(
+                  e.target.value
+                )
+              }
+            />
 
-          </thead>
+            <div className="popup-buttons">
 
-          <tbody>
+              <button
+                className="save-btn"
+                onClick={handleComplete}
+              >
+                Submit
+              </button>
 
-            {machineTableData.map((item, index) => (
+              <button
+                className="cancel-btn"
+                onClick={() =>
+                  setShowPopup(false)
+                }
+              >
+                Cancel
+              </button>
 
-              <tr key={index}>
+            </div>
 
-                <td>
-
-                  <div className="machine-cell">
-
-                    <div className="machine-icon-table">
-                      <Cpu size={18} />
-                    </div>
-
-                    <span>{item.machine}</span>
-
-                  </div>
-
-                </td>
-
-                <td>{item.component}</td>
-
-                <td>
-
-                  <div
-                    className={`table-status ${
-                      item.status === "Running"
-                        ? "running"
-                        : item.status === "Maintenance"
-                        ? "maintenance"
-                        : "idle"
-                    }`}
-                  >
-
-                    {item.status === "Running" ? (
-                      <Activity size={15} />
-                    ) : (
-                      <CircleAlert size={15} />
-                    )}
-
-                    {item.status}
-
-                  </div>
-
-                </td>
-
-                <td>
-                  <span className="shift-badge">
-                    {item.shift}
-                  </span>
-                </td>
-
-                <td>
-
-                  <div className="table-flex">
-                    <Users size={16} />
-                    {item.manpower}
-                  </div>
-
-                </td>
-
-                <td>
-
-                  <div className="table-flex">
-                    <Clock3 size={16} />
-                    {item.totalTime}
-                  </div>
-
-                </td>
-
-                <td>
-
-                  <div>
-
-                    <div className="efficiency-text">
-                      {item.efficiency}
-                    </div>
-
-                    <div className="table-progress">
-
-                      <div
-                        className="table-progress-fill"
-                        style={{
-                          width: item.efficiency
-                        }}
-                      ></div>
-
-                    </div>
-
-                  </div>
-
-                </td>
-
-              </tr>
-
-            ))}
-
-          </tbody>
-
-        </table>
-
-      </div>
-
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
 export default ProductionPlan;

@@ -4,7 +4,6 @@ import {
   LayoutDashboard,
   Factory,
   ShieldCheck,
-  FileText,
   Settings,
   Bell,
   BarChart3,

@@ -5,8 +5,7 @@ import {
   Search,
   Settings,
   Moon,
-  Sun,
-  UserCircle2
+  
 } from "lucide-react"
 
 function Navbar() {
